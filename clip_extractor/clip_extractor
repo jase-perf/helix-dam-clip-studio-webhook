@@ -1,0 +1,18 @@
+#!/bin/bash
+ARCH=$(uname -m)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+if [ "$ARCH" = "x86_64" ]; then
+    EXECUTABLE="${SCRIPT_DIR}/clip_extractor_amd64"
+elif [ "$ARCH" = "aarch64" ]; then
+    EXECUTABLE="${SCRIPT_DIR}/clip_extractor_arm64"
+elif [ "$ARCH" = "arm64" ]; then
+    EXECUTABLE="${SCRIPT_DIR}/clip_extractor_macos_arm64"
+else
+    echo "Unsupported architecture: $ARCH"
+    exit 1
+fi
+if [ ! -x "$EXECUTABLE" ]; then
+    echo "Error: $EXECUTABLE not found or not executable"
+    exit 1
+fi
+exec "$EXECUTABLE" "$@"
