@@ -143,7 +143,7 @@ def send_metadata_to_dam(depot_path: str, file_data: dict) -> None:
     payload = {
         "paths": [{"path": depot_path}],
         "create": [
-            {"uuid": METADATA_UUIDS[name], "value": value}
+            {"uuid": METADATA_UUIDS[name], "value": str(value)}
             for name, value in metadata.items()
         ],
         "propagatable": False,
